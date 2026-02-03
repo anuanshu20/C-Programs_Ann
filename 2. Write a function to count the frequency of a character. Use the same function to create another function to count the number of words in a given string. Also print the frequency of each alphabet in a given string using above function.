@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+
+int countChar(char str[], char ch)
+{
+    int i, count = 0;
+
+    for(i = 0; str[i] != '\0'; i++)
+    {
+        if(str[i] == ch)
+            count++;
+    }
+    return count;
+}
+
+int countWords(char str[])
+{
+    int i, count = 1;
+
+    for(i = 0; str[i] != '\0'; i++)
+    {
+        if(str[i] == ' ')
+            count++;
+    }
+    return count;
+}
+
+int main()
+{
+    char str[100];
+    char ch;
+    int i;
+
+    printf("Enter a string: ");
+    fgets(str, 100, stdin);
+
+    
+    printf("Enter a character to count: ");
+    scanf("%c", &ch);
+
+    printf("Frequency of '%c' = %d\n", ch, countChar(str, ch));
+
+    printf("Number of words = %d\n", countWords(str));
+
+    printf("\nFrequency of each alphabet:\n");
+    for(i = 'a'; i <= 'z'; i++)
+    {
+        int f = countChar(str, i);
+        if(f > 0)
+            printf("%c = %d\n", i, f);
+    }
+
+    return 0;
+}
