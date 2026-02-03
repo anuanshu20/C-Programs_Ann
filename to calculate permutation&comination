@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main()
+{
+    int n, r, i;
+    int fact_n = 1, fact_r = 1, fact_nr = 1;
+    int choice;
+
+    printf("1 = Permutation (nPr)\n");
+    printf("2 = Combination (nCr)\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    printf("Enter n: ");
+    scanf("%d", &n);
+
+    printf("Enter r: ");
+    scanf("%d", &r);
+
+    // factorial of n
+    for(i = 1; i <= n; i++)
+        fact_n = fact_n * i;
+
+    // factorial of r
+    for(i = 1; i <= r; i++)
+        fact_r = fact_r * i;
+
+    // factorial of (n-r)
+    for(i = 1; i <= n - r; i++)
+        fact_nr = fact_nr * i;
+
+    if(choice == 1)
+        printf("Permutation (nPr) = %d", fact_n / fact_nr);
+
+    else if(choice == 2)
+        printf("Combination (nCr) = %d", fact_n / (fact_r * fact_nr));
+
+    else
+        printf("Wrong choice");
+
+    return 0;
+}
