@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <conio.h>
+void shortName(char name[])
+{
+    int i;
+
+    // Print first letter
+    printf("%c. ", name[0]);
+
+    // Print middle name first letter
+    for(i = 1; name[i] != '\0'; i++)
+    {
+        if(name[i] == ' ')
+        {
+            printf("%c. ", name[i+1]);
+        }
+    }
+
+    // Print last name
+    for(i = 0; name[i] != '\0'; i++)
+    {
+        if(name[i] == ' ')
+        {
+            printf("%s", &name[i+1]);
+            break;
+        }
+    }
+}
+
+int main()
+{
+    char name[50];
+
+    printf("Enter full name: ");
+    fgets(name, 50, stdin);
+
+    shortName(name);
+
+    return 0;
+}
