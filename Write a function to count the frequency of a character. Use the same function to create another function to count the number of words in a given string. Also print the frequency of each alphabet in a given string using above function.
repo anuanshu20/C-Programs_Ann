@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<conio.h>
+
+int charFrequency(char str[], char ch) {
+    int count = 0;
+    for(int i = 0; str[i] != '\0'; i++) {
+        if(str[i] == ch)
+            count++;
+    }
+    return count;
+}
+int wordCount(char str[]) {
+    int words = 0;
+    for(int i = 0; str[i] != '\0'; i++) {
+        if((str[i] != ' ' && (i == 0 || str[i-1] == ' '))) {
+            words++;
+        }
+    }
+    return words;
+}
+void alphabetFrequency(char str[]) {
+    printf("\nFrequency of alphabets:\n");
+    for(char ch = 'a'; ch <= 'z'; ch++) {
+        int count = charFrequency(str, ch) + charFrequency(str, toupper(ch));
+        if(count > 0) {
+            printf("%c : %d\n", ch, count);
+        }
+    }
+}
+int main() {
+    char str[200];
+    char ch;
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    printf("Enter character to find frequency: ");
+    scanf("%c", &ch);
+    printf("\nFrequency of '%c' = %d\n", ch, charFrequency(str, ch));
+    printf("Number of words = %d\n", wordCount(str));
+    alphabetFrequency(str);
+    return 0;
+}
