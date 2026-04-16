@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<conio.h>
+
+typedef struct {
+    char name[50];
+    int roll_no;
+    char mobile_no[15];
+    float cgpa;
+    char dob[15];
+    char course[30];
+    int year;
+} Student;
+void input(Student *s) {
+    printf("\nEnter Name: ");
+    scanf(" %[^\n]", s->name);
+    printf("Enter Roll No: ");
+    scanf("%d", &s->roll_no);
+    printf("Enter Mobile No: ");
+    scanf("%s", s->mobile_no);
+    printf("Enter CGPA: ");
+    scanf("%f", &s->cgpa);
+    printf("Enter Date of Birth: ");
+    scanf("%s", s->dob);
+    printf("Enter Course: ");
+    scanf(" %[^\n]", s->course);
+    printf("Enter Year: ");
+    scanf("%d", &s->year);
+}
+void display(Student s) {
+    printf("\n----- Student Details -----\n");
+    printf("Name       : %s\n", s.name);
+    printf("Roll No    : %d\n", s.roll_no);
+    printf("Mobile No  : %s\n", s.mobile_no);
+    printf("CGPA       : %.2f\n", s.cgpa);
+    printf("DOB        : %s\n", s.dob);
+    printf("Course     : %s\n", s.course);
+    printf("Year       : %d\n", s.year);
+}
+Student findTopper(Student arr[], int n) {
+    int index = 0;
+    for(int i = 1; i < n; i++) {
+        if(arr[i].cgpa > arr[index].cgpa) {
+            index = i;
+        }
+    }
+    return arr[index];
+}
+int main() {
+    Student students[SIZE];
+    Student topper;
+    for(int i = 0; i < SIZE; i++) {
+        printf("\nEnter details of student %d:", i + 1);
+        input(&students[i]);
+    }
+    topper = findTopper(students, SIZE);
+    printf("Topper of the class:");
+    display(topper);
+    return 0;
+}
