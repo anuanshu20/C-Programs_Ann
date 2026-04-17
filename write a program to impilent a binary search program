@@ -1,0 +1,53 @@
+#include<stdio.h>
+#include<conio.h>
+
+void BINARY(int DATA[], int LB, int UB, int ITEM, int *loc)
+{
+    int beg=LB;
+    int end=UB;
+    int mid=(beg+end)/2;
+    while(beg<=end&&DATA[mid]!=ITEM)
+    {
+        if(ITEM<DATA[mid])
+        {
+            end=mid-1;
+        }
+        else
+        {
+            beg=mid+1;
+        }
+        mid=(beg+end)/2;
+    }
+    if( DATA[mid]==ITEM)
+    {
+        *loc=mid;
+    }
+    else
+    {
+        *loc=NULL;
+    }
+}
+int main()
+{
+    int DATA[100], n, ITEM, loc, i;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+    printf("Enter %d elements in sorted order:\n", n);
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &DATA[i]);
+    }
+    printf("Enter item to search: ");
+    scanf("%d", &ITEM);
+    BINARY(DATA, 0, n, ITEM, &loc);
+    if(loc==NULL)
+    {
+        printf("Item not found\n");
+    }
+    else
+    {
+        printf("Item found at index: %d\n", loc);
+    }
+
+    return 0;
+}
