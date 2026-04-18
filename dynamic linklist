@@ -1,0 +1,159 @@
+#include<stdio.h>
+#include<conio.h>
+
+struct node
+{
+    int data;
+    struct node*link;
+};
+struct node*create_node(int data_value)
+{
+    struct node*ptr;
+    ptr=(struct node*)malloc(sizeof(struct node));
+    ptr->data=data_value;
+    ptr->link=NULL;
+    return ptr;
+};
+void Traverse(struct node*start)
+{
+    struct node*ptr;
+    ptr=start;
+    while(ptr!=NULL)
+    {
+        printf("%d->",ptr->data);
+        ptr=ptr->link;
+    }
+}
+void InsertBegin(struct node**start, int data_value)
+{
+    struct node*new=create_node(data_value);
+    new->link=*start;
+    *start=new;
+}
+void InsertEnd(struct node**start, int data_value)
+{
+    struct node*new=create_node(data_value);
+    struct node*ptr;
+    if(*start==NULL)
+    {
+        *start=new;
+        return;
+    }
+    ptr=*start;
+    while(ptr->link!=NULL)
+    {
+        ptr=ptr->link;
+    }
+    ptr->link=new;
+}
+void InsertInBtw(struct node**start, int data_value, int pos)
+{
+    struct node*new=create_node(data_value);
+    struct node*ptr=*start;
+    int i;
+    if(pos==0)
+    {
+        new->link=*start;
+        *start=new;
+        return;
+    }
+    for(i=0;i<pos-1&&ptr!=NULL;i++)
+    {
+        ptr=ptr->link;
+    }
+    if(ptr==NULL)
+    {
+        printf("Invalid position\n");
+        return;
+    }
+    new->link=ptr->link;
+    ptr->link=new;
+}
+void DeleteBegin(struct node**start)
+{
+    *start=(*start)->link;
+}
+void DeleteEnd(struct node**start)
+{
+    struct node*ptr;
+    ptr=*start;
+    while(ptr->link!=NULL)
+    {
+        ptr=ptr->link;
+        ptr->link=NULL;
+    }
+}
+void DeleteInBtw(struct node**start, int pos)
+{
+    struct node*ptr=*start;
+    int i;
+    if(*start==NULL)
+    {
+        printf("List is empty");
+        return;
+    }
+    if(pos==0)
+    {
+        *start=(*start)->link;
+        return;
+    }
+    for(i=0;i<pos-1&&ptr!=NULL;i++)
+    {
+        ptr=ptr->link;
+    }
+    if(ptr==NULL||ptr->link==NULL)
+    {
+        printf("Invalid position");
+        return;
+    }
+    ptr->link=ptr->link->link;
+}
+int main()
+{
+    struct node*start=NULL;
+    int choice, value, pos;
+    while(1)
+    {
+        printf("\n1.Insert at Beginning\n2.Insert at End\n3.Insert In Between\n");
+        printf("4.Delete at Beginning\n5.Delete at End\n6.Delete In Between\n");
+        printf("7.Traverse\n8.Exit\n");
+        printf("Enter choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                InsertBegin(&start, value);
+                break;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                InsertEnd(&start, value);
+                break;
+            case 3:
+                printf("Enter value and position: ");
+                scanf("%d %d", &value, &pos);
+                InsertInBtw(&start, value, pos);
+                break;
+            case 4:
+                DeleteBegin(&start);
+                break;
+            case 5:
+                DeleteEnd(&start);
+                break;
+            case 6:
+                printf("Enter position: ");
+                scanf("%d", &pos);
+                DeleteInBtw(&start, pos);
+                break;
+            case 7:
+                Traverse(start);
+                break;
+            case 8:
+                return 0;
+            default:
+                printf("Invalid choice");
+        }
+    }
+}
